@@ -173,6 +173,18 @@ textarea:focus, .stTextArea textarea:focus {{
 .stFileUploader:hover {{
     border-color: #7c3aed;
 }}
+[data-testid="stFileUploader"] {{
+    width: 100% !important;
+}}
+[data-testid="stFileUploadDropzone"] {{
+    min-height: 100px !important;
+    padding: 20px !important;
+}}
+[data-testid="stFileUploadDropzone"] button {{
+    width: auto !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+}}
 
 .stProgress > div > div {{
     background: linear-gradient(90deg, #7c3aed, #2563eb, #7c3aed);
