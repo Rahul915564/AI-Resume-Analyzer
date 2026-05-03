@@ -185,6 +185,17 @@ textarea:focus, .stTextArea textarea:focus {{
     white-space: nowrap !important;
     overflow: visible !important;
 }}
+[data-testid="stFileUploadDropzone"] button p {{
+    display: none !important;
+}}
+[data-testid="stFileUploadDropzone"] button::before {{
+    content: "📄 Browse File" !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}}
+[data-testid="stFileUploadDropzone"] {{
+    text-align: center !important;
+}}
 
 .stProgress > div > div {{
     background: linear-gradient(90deg, #7c3aed, #2563eb, #7c3aed);
