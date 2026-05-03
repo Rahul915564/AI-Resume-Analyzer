@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dotenv import load_dotenv
 import PyPDF2
-import google.generativeai as genai
+from groq import Groq
 from fpdf import FPDF
 import io
 import re
@@ -13,9 +13,16 @@ import tempfile
 
 load_dotenv()
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-pro") if GEMINI_API_KEY else None
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+
+
+def get_ai_response(prompt):
+    client = Groq(api_key=GROQ_API_KEY)
+    response = client.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
 
 st.set_page_config(
     page_title="AI Resume Analyzer & Job Matcher",
@@ -42,7 +49,7 @@ TRANSLATIONS = {
         "rewritten_summary": "Rewritten Resume Summary",
         "download_report": "Download Analysis Report (PDF)",
         "language_toggle": "Language / भाषा",
-        "no_api_key": "Please set your GEMINI_API_KEY environment variable.",
+        "no_api_key": "Please set your GROQ_API_KEY environment variable.",
         "no_resume": "Please upload a resume PDF.",
         "no_job_desc": "Please paste a job description.",
         "upload_help": "Supported format: PDF only",
@@ -84,7 +91,7 @@ TRANSLATIONS = {
         "rewritten_summary": "फिर से लिखा गया रिज्यूमे सारांश",
         "download_report": "विश्लेषण रिपोर्ट डाउनलोड करें (PDF)",
         "language_toggle": "Language / भाषा",
-        "no_api_key": "कृपया अपना GEMINI_API_KEY सेट करें।",
+        "no_api_key": "कृपया अपना GROQ_API_KEY सेट करें।",
         "no_resume": "कृपया एक रिज्यूमे PDF अपलोड करें।",
         "no_job_desc": "कृपया जॉब विवरण पेस्ट करें।",
         "upload_help": "समर्थित प्रारूप: केवल PDF",
@@ -156,8 +163,7 @@ Return ONLY a valid JSON object (no markdown, no code blocks) with this exact st
   }}
 }}
 """
-    response = model.generate_content(prompt)
-    raw = response.text.strip()
+    raw = get_ai_response(prompt).strip()
     raw = re.sub(r"^```json\s*", "", raw)
     raw = re.sub(r"^```\s*", "", raw)
     raw = re.sub(r"```$", "", raw)
@@ -349,7 +355,7 @@ def main():
 {t('sidebar_step5')}
 """)
         st.markdown("---")
-        if not model:
+        if not GROQ_API_KEY:
             st.error(t("no_api_key"))
 
     st.title(f"📄 {t('title')}")
@@ -392,7 +398,7 @@ def main():
         )
 
     if analyze_btn:
-        if not model:
+        if not GROQ_API_KEY:
             st.error(t("no_api_key"))
         elif not st.session_state.get("resume_text"):
             st.warning(t("no_resume"))
