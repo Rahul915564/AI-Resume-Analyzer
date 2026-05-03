@@ -35,17 +35,23 @@ def inject_css():
         card_bg = "rgba(255,255,255,0.05)"
         text_color = "#e0e0ff"
         border = "rgba(255,255,255,0.15)"
+        card_border = f"1px solid rgba(255,255,255,0.15)"
+        input_border = f"1px solid rgba(255,255,255,0.15)"
         metric_bg = "rgba(255,255,255,0.08)"
         input_bg = "rgba(255,255,255,0.06)"
         sidebar_bg = "rgba(15,12,41,0.95)"
+        sidebar_border = "1px solid rgba(255,255,255,0.15)"
     else:
         bg = "linear-gradient(135deg, #e8eaf6, #ede7f6, #f3e5f5)"
-        card_bg = "rgba(255,255,255,0.75)"
-        text_color = "#1a1a3e"
-        border = "rgba(100,80,200,0.25)"
-        metric_bg = "rgba(255,255,255,0.9)"
-        input_bg = "rgba(255,255,255,0.85)"
-        sidebar_bg = "rgba(232,234,246,0.97)"
+        card_bg = "#f0f2f6"
+        text_color = "#1a1a2e"
+        border = "#e0e0e0"
+        card_border = "2px solid #e0e0e0"
+        input_border = "1px solid #cccccc"
+        metric_bg = "#ffffff"
+        input_bg = "#ffffff"
+        sidebar_bg = "#e8eaf6"
+        sidebar_border = "1px solid #d0d0d0"
 
     st.markdown(f"""
 <style>
@@ -62,13 +68,13 @@ def inject_css():
 section[data-testid="stSidebar"] {{
     background: {sidebar_bg} !important;
     backdrop-filter: blur(20px);
-    border-right: 1px solid {border};
+    border-right: {sidebar_border};
 }}
 
 div[data-testid="stMetric"] {{
     background: {metric_bg};
     backdrop-filter: blur(16px);
-    border: 1px solid {border};
+    border: {card_border};
     border-radius: 16px;
     padding: 16px 20px;
     box-shadow: 0 4px 24px rgba(80,60,200,0.12);
@@ -82,7 +88,7 @@ div[data-testid="stMetric"]:hover {{
 div[data-testid="stExpander"] {{
     background: {card_bg};
     backdrop-filter: blur(20px);
-    border: 1px solid {border};
+    border: {card_border};
     border-radius: 16px;
     overflow: hidden;
 }}
@@ -92,7 +98,7 @@ div[data-testid="stExpander"] {{
     backdrop-filter: blur(16px);
     border-radius: 14px;
     padding: 6px;
-    border: 1px solid {border};
+    border: {card_border};
     gap: 4px;
 }}
 .stTabs [data-baseweb="tab"] {{
@@ -144,7 +150,7 @@ div[data-testid="stExpander"] {{
 
 textarea, .stTextArea textarea {{
     background: {input_bg} !important;
-    border: 1px solid {border} !important;
+    border: {input_border} !important;
     border-radius: 12px !important;
     color: {text_color} !important;
     backdrop-filter: blur(10px);
@@ -162,6 +168,7 @@ textarea:focus, .stTextArea textarea:focus {{
     transition: border-color 0.2s ease;
     backdrop-filter: blur(10px);
     padding: 8px;
+    color: {text_color};
 }}
 .stFileUploader:hover {{
     border-color: #7c3aed;
@@ -181,7 +188,7 @@ textarea:focus, .stTextArea textarea:focus {{
 div[data-testid="stAlert"] {{
     border-radius: 12px;
     backdrop-filter: blur(10px);
-    border: 1px solid {border};
+    border: {card_border};
 }}
 
 .hero-title {{
@@ -208,13 +215,14 @@ div[data-testid="stAlert"] {{
     background: {card_bg};
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid {border};
+    border: {card_border};
     border-radius: 20px;
     padding: 24px;
     margin: 12px 0;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeInUp 0.5s ease;
+    color: {text_color};
 }}
 .section-card:hover {{
     transform: translateY(-4px) perspective(800px) rotateX(1deg);
@@ -245,17 +253,18 @@ div[data-testid="stAlert"] {{
 }}
 .qa-card {{
     background: {card_bg};
-    border: 1px solid {border};
+    border: {card_border};
     border-radius: 14px;
     padding: 18px;
     margin: 10px 0;
     backdrop-filter: blur(12px);
     border-left: 4px solid #7c3aed;
     animation: fadeInLeft 0.4s ease;
+    color: {text_color};
 }}
 .roadmap-step {{
     background: {card_bg};
-    border: 1px solid {border};
+    border: {card_border};
     border-radius: 14px;
     padding: 16px 20px;
     margin: 8px 0;
@@ -264,6 +273,7 @@ div[data-testid="stAlert"] {{
     display: flex;
     align-items: flex-start;
     gap: 12px;
+    color: {text_color};
 }}
 .salary-display {{
     background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(37,99,235,0.2));
@@ -277,6 +287,7 @@ div[data-testid="stAlert"] {{
     height: 1px;
     background: linear-gradient(90deg, transparent, {border}, transparent);
     margin: 24px 0;
+    opacity: {'0.5' if not dark else '1'};
 }}
 
 @keyframes fadeInDown {{
