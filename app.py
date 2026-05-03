@@ -196,6 +196,22 @@ textarea:focus, .stTextArea textarea:focus {{
 [data-testid="stFileUploadDropzone"] {{
     text-align: center !important;
 }}
+[data-testid="stFileUploaderDropzoneInput"] + div {{
+    display: none !important;
+}}
+
+[data-testid="stExpander"] summary p {{
+    display: inline !important;
+    margin-left: 5px !important;
+}}
+[data-testid="stExpander"] summary svg {{
+    vertical-align: middle !important;
+}}
+
+[data-testid="stTextArea"] textarea {{
+    border: {input_border} !important;
+    border-radius: 10px !important;
+}}
 
 .stProgress > div > div {{
     background: linear-gradient(90deg, #7c3aed, #2563eb, #7c3aed);
