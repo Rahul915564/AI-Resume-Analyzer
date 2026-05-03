@@ -5,8 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dotenv import load_dotenv
 import PyPDF2
-from google import genai
-from google.genai import types
+import google.generativeai as genai
 from fpdf import FPDF
 import io
 import re
@@ -15,7 +14,9 @@ import tempfile
 load_dotenv()
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel("gemini-pro") if GEMINI_API_KEY else None
 
 st.set_page_config(
     page_title="AI Resume Analyzer & Job Matcher",
@@ -156,10 +157,7 @@ Return ONLY a valid JSON object (no markdown, no code blocks) with this exact st
   }}
 }}
 """
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=prompt,
-    )
+    response = model.generate_content(prompt)
     raw = response.text.strip()
     raw = re.sub(r"^```json\s*", "", raw)
     raw = re.sub(r"^```\s*", "", raw)
@@ -352,7 +350,7 @@ def main():
 {t('sidebar_step5')}
 """)
         st.markdown("---")
-        if not client:
+        if not model:
             st.error(t("no_api_key"))
 
     st.title(f"📄 {t('title')}")
@@ -395,7 +393,7 @@ def main():
         )
 
     if analyze_btn:
-        if not client:
+        if not model:
             st.error(t("no_api_key"))
         elif not st.session_state.get("resume_text"):
             st.warning(t("no_resume"))
