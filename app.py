@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dotenv import load_dotenv
 import PyPDF2
+import httpx
 from groq import Groq
 from fpdf import FPDF
 import io
@@ -17,7 +18,10 @@ GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
 
 
 def get_ai_response(prompt):
-    client = Groq(api_key=GROQ_API_KEY)
+    client = Groq(
+        api_key=GROQ_API_KEY,
+        http_client=httpx.Client()
+    )
     response = client.chat.completions.create(
         model="llama3-8b-8192",
         messages=[{"role": "user", "content": prompt}]
