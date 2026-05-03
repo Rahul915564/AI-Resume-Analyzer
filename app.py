@@ -177,46 +177,8 @@ textarea:focus, .stTextArea textarea:focus {{
     width: 100% !important;
 }}
 [data-testid="stFileUploadDropzone"] {{
-    min-height: 100px !important;
-    padding: 20px !important;
-}}
-[data-testid="stFileUploadDropzone"] button {{
-    width: auto !important;
-    white-space: nowrap !important;
-    overflow: visible !important;
-}}
-[data-testid="stFileUploadDropzone"] button p {{
-    display: none !important;
-}}
-[data-testid="stFileUploadDropzone"] button::before {{
-    content: "📄 Browse File" !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-}}
-[data-testid="stFileUploadDropzone"] {{
-    text-align: center !important;
-}}
-[data-testid="stFileUploaderDropzoneInput"] + div {{
-    display: none !important;
-}}
-
-[data-testid="stExpander"] details summary {{
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-}}
-[data-testid="stExpander"] details summary span {{
-    margin-left: 8px !important;
-}}
-
-[data-testid="stFileUploader"] section {{
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}}
-[data-testid="stFileUploader"] section > div {{
-    display: flex !important;
-    visibility: visible !important;
+    background: {card_bg} !important;
+    border-radius: 12px !important;
 }}
 
 [data-testid="stTextArea"] textarea {{
