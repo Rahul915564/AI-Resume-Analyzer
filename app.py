@@ -200,12 +200,23 @@ textarea:focus, .stTextArea textarea:focus {{
     display: none !important;
 }}
 
-[data-testid="stExpander"] summary p {{
-    display: inline !important;
-    margin-left: 5px !important;
+[data-testid="stExpander"] details summary {{
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
 }}
-[data-testid="stExpander"] summary svg {{
-    vertical-align: middle !important;
+[data-testid="stExpander"] details summary span {{
+    margin-left: 8px !important;
+}}
+
+[data-testid="stFileUploader"] section {{
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}}
+[data-testid="stFileUploader"] section > div {{
+    display: flex !important;
+    visibility: visible !important;
 }}
 
 [data-testid="stTextArea"] textarea {{
