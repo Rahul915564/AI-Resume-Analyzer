@@ -15,7 +15,7 @@ load_dotenv()
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-pro") if GEMINI_API_KEY else None
+model = genai.GenerativeModel("gemini-pro") if GEMINI_API_KEY else None
 
 st.set_page_config(
     page_title="AI Resume Analyzer & Job Matcher",
