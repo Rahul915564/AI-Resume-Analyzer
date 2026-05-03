@@ -288,7 +288,7 @@ def generate_pdf_report(analysis, resume_text, job_desc):
         pdf.set_font("Helvetica", "", 11)
         for item in items:
             safe = f"  • {item}".encode("latin-1", "replace").decode("latin-1")
-            pdf.multi_cell(0, 7, safe)
+            pdf.multi_cell(0, 7, str(safe).encode('latin-1', 'replace').decode('latin-1'))
         pdf.ln(2)
 
     section_header("Score Summary")
